@@ -3,9 +3,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-var savedLists = localStorage.getItem('my-trello-challenge')
-
-
+// ローカルストレージの設定でカンニング
+var savedLists = localStorage.getItem('my-trello-lists')
 
 const store = new Vuex.Store({
   state: {
@@ -31,7 +30,7 @@ const store = new Vuex.Store({
   },
   mutations: {
     addList(state,payload) {
-      state.lists.push({title:payload.title},{cards:payload.cards})
+      state.lists.push({title:payload.title,cards:[]})
     }
   },
   actions: {
@@ -42,5 +41,12 @@ const store = new Vuex.Store({
   modules: {
   }
 })
+
+store.subscribe((mutation,state) => {
+  localStorage.setItem('my-trello-challenge' , JSON.stringify(state.lists))
+})
+// このsubscribeの部分の理解が浅いため丸写しにしてしまった
+// subscribeはストアのインスタンスメソッドで、全てのmutationの後に呼ばれます。
+// 第一引数にmutationインスタンス、第二引数にmutation後のデータの状態を受け取ります。
 
 export default store
