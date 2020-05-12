@@ -8,6 +8,7 @@
         :key="item.id"
         :title="item.title"
         :listIndex="index"
+        :cards="item.cards"
       />
       <ListAdd/>
     </div>

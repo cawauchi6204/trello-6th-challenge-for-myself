@@ -31,11 +31,31 @@ const store = new Vuex.Store({
   mutations: {
     addList(state,payload) {
       state.lists.push({title:payload.title,cards:[]})
+    },
+    removeList(state,payload) {
+      state.lists.splice(payload.listIndex,1,)
+    },
+    addCardToList(state,payload) {
+      state.lists[payload.listIndex].cards.push({body:payload.body})
+    },
+    // ここの設定をstate.lists.cards.push({body:payload})としてしまった
+    // [payload.listIndex]ここがよくわからない
+    removeCardFromList(state,payload) {
+      state.lists[payload.listIndex].cards.splice(payload.listIndex,1)
     }
   },
   actions: {
     addList(context,payload) {
       context.commit('addList' , payload)
+    },
+    removeList(context,payload) {
+      context.commit('removeList' , payload)
+    },
+    addCardToList(context,payload) {
+      context.commit('addCardToList' , payload)
+    },
+    removeCardFromList(context,payload) {
+      context.commit('removeCardFromList' , payload)
     }
   },
   modules: {
